@@ -1,0 +1,101 @@
+spring:
+  application:
+    name: race-service
+  datasource:
+    url: jdbc:h2:mem:racedb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: htwo
+    password: passwd
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://id.muni.cz/oidc/
+          audiences:
+            - 7e02a0a9-446a-412d-ad2b-90add47b0fdd
+  artemis:
+    mode: ${SPRING_ARTEMIS_MODE:native}
+    broker-url: ${ARTEMIS_BROKER_URL:tcp://localhost:61616}
+    user: ${ARTEMIS_USER:admin}
+    password: ${ARTEMIS_PASSWORD:admin}
+  liquibase:
+    change-log: classpath:/db/changelog/main-changelog.xml
+    enabled: true
+    drop-first: true
+    contexts: dev
+  banner:
+    location: classpath:banner.txt
+
+server:
+  port: 8082
+  servlet:
+    context-path: /api/v1
+
+race-service:
+  jms:
+    telemetry-queue: telemetry.events
+  oauth:
+    token-url: https://id.muni.cz/oidc/token
+    client-id: 7e02a0a9-446a-412d-ad2b-90add47b0fdd
+    client-secret: 48a2b2e3-4b2b-471e-b7b7-b81a85b6eeef22f347f2-3fc9-4e16-8698-3e2492701a89
+    redirect-uri: http://localhost:8082/login/oauth2/code/muni
+
+
+springdoc:
+  show-actuator: true
+  swagger-ui:
+    path: /swagger-ui.html
+    oauth:
+      client-id: 7e02a0a9-446a-412d-ad2b-90add47b0fdd
+      client-secret: 48a2b2e3-4b2b-471e-b7b7-b81a85b6eeef22f347f2-3fc9-4e16-8698-3e2492701a89
+      scopes:
+        - openid
+        - test_read
+        - test_write
+
+f1-logic:
+  points:
+    # Position: Points
+    mapping:
+      1: 25
+      2: 18
+      3: 15
+      4: 12
+      5: 10
+      6: 8
+      7: 6
+      8: 4
+      9: 2
+      10: 1
+    fastest-lap:
+      bonus: 1
+      min-position: 10
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true

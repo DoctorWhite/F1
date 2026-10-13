@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="001-create-race-results" author="team2">
+        <createTable tableName="race_results">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="leaderboard" type="VARCHAR(5000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fastest_lap_driver_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="002-create-races" author="team2">
+        <createTable tableName="races">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="location" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weather" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="race_result_id" type="bigint">
+                <constraints foreignKeyName="fk_race_result" references="race_results(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="003-create-driver-laps" author="team2">
+        <createTable tableName="driver_laps">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="driver_id" type="bigint"/>
+            <column name="race_id" type="bigint">
+                <constraints foreignKeyName="fk_race_lap" references="races(id)"/>
+            </column>
+            <column name="fuel_level" type="double precision">
+                <constraints nullable="false"/>
+            </column>
+            <column name="engine_temp" type="double precision">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tire_pressure" type="double precision">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lap_time" type="double precision">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

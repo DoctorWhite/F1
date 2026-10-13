@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="seed-f1-data" author="team2" context="dev">
+        <insert tableName="race_results">
+            <column name="leaderboard" value='{"1": {"id": 1, "firstName": "Max", "lastName": "Verstappen"}}'/>
+            <column name="fastest_lap_driver_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="races">
+            <column name="location" value="Silverstone Circuit"/>
+            <column name="date" value="2026-07-05"/>
+            <column name="weather" value="SUNNY"/>
+            <column name="race_result_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="driver_laps">
+            <column name="race_id" valueNumeric="1"/>
+            <column name="fuel_level" valueNumeric="42.5"/>
+            <column name="engine_temp" valueNumeric="101.2"/>
+            <column name="tire_pressure" valueNumeric="1.9"/>
+            <column name="lap_time" valueNumeric="87.432"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="driver_laps"/>
+            <delete tableName="races"/>
+            <delete tableName="race_results"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
