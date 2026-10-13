@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="20260505_schema" author="driver-service">
+        <createTable tableName="drivers">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nationality" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="wet_skill" type="int" defaultValueNumeric="0"/>
+            <column name="aggressiveness" type="int" defaultValueNumeric="0"/>
+            <column name="consistency" type="int" defaultValueNumeric="0"/>
+            <column name="feedback_quality" type="int" defaultValueNumeric="0"/>
+        </createTable>
+
+        <createTable tableName="driver_telemetry">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="driver_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="race_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recorded_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fuel_level" type="double" defaultValueNumeric="0.0"/>
+            <column name="engine_temp" type="double" defaultValueNumeric="0.0"/>
+            <column name="tire_pressure" type="double" defaultValueNumeric="0.0"/>
+            <column name="lap_time" type="double" defaultValueNumeric="0.0"/>
+            <column name="processed" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="driver_race_stats">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="driver_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="race_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="processed_at" type="timestamp"/>
+            <column name="avg_fuel_level" type="double" defaultValueNumeric="0.0"/>
+            <column name="avg_engine_temp" type="double" defaultValueNumeric="0.0"/>
+            <column name="avg_tire_pressure" type="double" defaultValueNumeric="0.0"/>
+            <column name="avg_lap_time" type="double" defaultValueNumeric="0.0"/>
+            <column name="derived_consistency" type="double" defaultValueNumeric="0.0"/>
+            <column name="sample_count" type="int" defaultValueNumeric="0"/>
+        </createTable>
+
+        <createTable tableName="received_telemetry_messages">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="message_id" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="driver_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="race_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="received_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

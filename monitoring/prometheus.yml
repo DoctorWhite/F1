@@ -1,0 +1,25 @@
+global:
+  scrape_interval: 15s
+  external_labels:
+    monitor: 'f1-monitor'
+
+scrape_configs:
+  - job_name: 'driver-service'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['driver-service:8080']
+
+  - job_name: 'race-service'
+    metrics_path: /api/v1/actuator/prometheus
+    static_configs:
+      - targets: ['race-service:8082']
+
+  - job_name: 'car-service'
+    metrics_path: /api/v1/actuator/prometheus
+    static_configs:
+      - targets: ['car-service:8083']
+
+  - job_name: 'component-service'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['component-service:8081']

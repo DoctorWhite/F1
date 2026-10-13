@@ -1,0 +1,35 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  liquibase:
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  artemis:
+    mode: embedded
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9999/test-issuer
+          audiences:
+            - test-audience
+
+driver-service:
+  jms:
+    telemetry-queue: test.telemetry.queue
+  oauth:
+    token-url: http://localhost:9999/token
+    client-id: test-client
+    client-secret: test-secret
+    redirect-uri: http://localhost:8080/login/oauth2/code/muni
+  wet-weather-weight: 0.45
+  dry-weather-weight: 0.20
+  mixed-weather-weight: 0.30
+  consistency-weight: 0.30
+  aggressiveness-weight: 0.15
+  feedback-weight: 0.10
+  technical-demand-feedback-bonus: 0.20
+  batch:
+    chunk-size: 10

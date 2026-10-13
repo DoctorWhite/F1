@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="20260505_seed" author="driver-service">
+        <insert tableName="drivers">
+            <column name="first_name" value="Lewis"/>
+            <column name="last_name" value="Hamilton"/>
+            <column name="nationality" value="British"/>
+            <column name="role" value="MAIN"/>
+            <column name="wet_skill" valueNumeric="88"/>
+            <column name="aggressiveness" valueNumeric="75"/>
+            <column name="consistency" valueNumeric="92"/>
+            <column name="feedback_quality" valueNumeric="90"/>
+        </insert>
+        <insert tableName="drivers">
+            <column name="first_name" value="Max"/>
+            <column name="last_name" value="Verstappen"/>
+            <column name="nationality" value="Dutch"/>
+            <column name="role" value="MAIN"/>
+            <column name="wet_skill" valueNumeric="82"/>
+            <column name="aggressiveness" valueNumeric="90"/>
+            <column name="consistency" valueNumeric="88"/>
+            <column name="feedback_quality" valueNumeric="78"/>
+        </insert>
+        <insert tableName="drivers">
+            <column name="first_name" value="Charles"/>
+            <column name="last_name" value="Leclerc"/>
+            <column name="nationality" value="Monegasque"/>
+            <column name="role" value="MAIN"/>
+            <column name="wet_skill" valueNumeric="79"/>
+            <column name="aggressiveness" valueNumeric="83"/>
+            <column name="consistency" valueNumeric="80"/>
+            <column name="feedback_quality" valueNumeric="85"/>
+        </insert>
+        <insert tableName="drivers">
+            <column name="first_name" value="Lando"/>
+            <column name="last_name" value="Norris"/>
+            <column name="nationality" value="British"/>
+            <column name="role" value="MAIN"/>
+            <column name="wet_skill" valueNumeric="75"/>
+            <column name="aggressiveness" valueNumeric="80"/>
+            <column name="consistency" valueNumeric="82"/>
+            <column name="feedback_quality" valueNumeric="88"/>
+        </insert>
+        <insert tableName="drivers">
+            <column name="first_name" value="Fernando"/>
+            <column name="last_name" value="Alonso"/>
+            <column name="nationality" value="Spanish"/>
+            <column name="role" value="MAIN"/>
+            <column name="wet_skill" valueNumeric="91"/>
+            <column name="aggressiveness" valueNumeric="85"/>
+            <column name="consistency" valueNumeric="87"/>
+            <column name="feedback_quality" valueNumeric="92"/>
+        </insert>
+        <insert tableName="drivers">
+            <column name="first_name" value="George"/>
+            <column name="last_name" value="Russell"/>
+            <column name="nationality" value="British"/>
+            <column name="role" value="TEST"/>
+            <column name="wet_skill" valueNumeric="72"/>
+            <column name="aggressiveness" valueNumeric="70"/>
+            <column name="consistency" valueNumeric="78"/>
+            <column name="feedback_quality" valueNumeric="82"/>
+        </insert>
+        <insert tableName="drivers">
+            <column name="first_name" value="Carlos"/>
+            <column name="last_name" value="Sainz"/>
+            <column name="nationality" value="Spanish"/>
+            <column name="role" value="TEST"/>
+            <column name="wet_skill" valueNumeric="77"/>
+            <column name="aggressiveness" valueNumeric="74"/>
+            <column name="consistency" valueNumeric="81"/>
+            <column name="feedback_quality" valueNumeric="86"/>
+        </insert>
+        <insert tableName="drivers">
+            <column name="first_name" value="Oliver"/>
+            <column name="last_name" value="Bearman"/>
+            <column name="nationality" value="British"/>
+            <column name="role" value="RESERVE"/>
+            <column name="wet_skill" valueNumeric="65"/>
+            <column name="aggressiveness" valueNumeric="72"/>
+            <column name="consistency" valueNumeric="70"/>
+            <column name="feedback_quality" valueNumeric="75"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
