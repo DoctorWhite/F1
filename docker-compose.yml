@@ -1,0 +1,100 @@
+services:
+  artemis:
+    image: apache/activemq-artemis:2.44.0
+    ports:
+      - "61616:61616"
+      - "8161:8161"
+    environment:
+      ARTEMIS_USER: admin
+      ARTEMIS_PASSWORD: admin
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8161"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - f1-network
+
+  driver-service:
+    build:
+      context: .
+      dockerfile: driver-service/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_ARTEMIS_MODE: native
+      SPRING_ARTEMIS_BROKER_URL: tcp://artemis:61616
+    depends_on:
+      artemis:
+        condition: service_healthy
+    networks:
+      - f1-network
+
+  component-service:
+    build:
+      context: .
+      dockerfile: component-service/Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_ARTEMIS_BROKER_URL: tcp://artemis:61616
+    depends_on:
+      artemis:
+        condition: service_healthy
+    networks:
+      - f1-network
+
+  race-service:
+    build:
+      context: .
+      dockerfile: race-service/Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_ARTEMIS_BROKER_URL: tcp://artemis:61616
+    depends_on:
+      artemis:
+        condition: service_healthy
+    networks:
+      - f1-network
+
+  car-service:
+    build:
+      context: .
+      dockerfile: car-service/Dockerfile
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_ARTEMIS_BROKER_URL: tcp://artemis:61616
+    depends_on:
+      artemis:
+        condition: service_healthy
+    networks:
+      - f1-network
+
+  prometheus:
+    image: prom/prometheus:v2.43.0
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - f1-network
+
+  grafana:
+    image: grafana/grafana:9.1.7
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+    depends_on:
+      - prometheus
+    networks:
+      - f1-network
+
+networks:
+  f1-network:
+    driver: bridge

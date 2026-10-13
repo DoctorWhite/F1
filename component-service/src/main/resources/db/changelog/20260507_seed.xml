@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="20260507_component_seed" author="component-service">
+        <insert tableName="components">
+            <column name="name" value="Falcon V6 Turbo Hybrid"/>
+            <column name="component_type" value="ENGINE"/>
+            <column name="version" value="2026.1"/>
+            <column name="performance_score" valueNumeric="96.5"/>
+            <column name="reliability_score" valueNumeric="91.0"/>
+            <column name="department" value="Powertrain"/>
+        </insert>
+        <insert tableName="components">
+            <column name="name" value="Endurance Energy Recovery Unit"/>
+            <column name="component_type" value="ENGINE"/>
+            <column name="version" value="2026.2"/>
+            <column name="performance_score" valueNumeric="93.2"/>
+            <column name="reliability_score" valueNumeric="96.4"/>
+            <column name="department" value="Powertrain"/>
+        </insert>
+        <insert tableName="components">
+            <column name="name" value="Monaco Mechanical Grip Kit"/>
+            <column name="component_type" value="SUSPENSION"/>
+            <column name="version" value="street-2026"/>
+            <column name="performance_score" valueNumeric="92.8"/>
+            <column name="reliability_score" valueNumeric="94.1"/>
+            <column name="department" value="Vehicle Dynamics"/>
+        </insert>
+        <insert tableName="components">
+            <column name="name" value="Silverstone High-Speed Damper Set"/>
+            <column name="component_type" value="SUSPENSION"/>
+            <column name="version" value="fast-2026"/>
+            <column name="performance_score" valueNumeric="95.3"/>
+            <column name="reliability_score" valueNumeric="90.7"/>
+            <column name="department" value="Vehicle Dynamics"/>
+        </insert>
+        <insert tableName="components">
+            <column name="name" value="Spa Low-Drag Rear Wing"/>
+            <column name="component_type" value="AERO"/>
+            <column name="version" value="ld-2026"/>
+            <column name="performance_score" valueNumeric="97.1"/>
+            <column name="reliability_score" valueNumeric="88.9"/>
+            <column name="department" value="Aerodynamics"/>
+        </insert>
+        <insert tableName="components">
+            <column name="name" value="Singapore Cooling Bodywork"/>
+            <column name="component_type" value="AERO"/>
+            <column name="version" value="cool-2026"/>
+            <column name="performance_score" valueNumeric="90.4"/>
+            <column name="reliability_score" valueNumeric="97.2"/>
+            <column name="department" value="Aerodynamics"/>
+        </insert>
+        <insert tableName="components">
+            <column name="name" value="Rapid Shift Carbon Gearbox"/>
+            <column name="component_type" value="GEARBOX"/>
+            <column name="version" value="8spd-2026"/>
+            <column name="performance_score" valueNumeric="94.6"/>
+            <column name="reliability_score" valueNumeric="93.5"/>
+            <column name="department" value="Transmission"/>
+        </insert>
+        <insert tableName="components">
+            <column name="name" value="Wet Race Control Electronics"/>
+            <column name="component_type" value="ELECTRONICS"/>
+            <column name="version" value="rain-2026"/>
+            <column name="performance_score" valueNumeric="89.8"/>
+            <column name="reliability_score" valueNumeric="98.0"/>
+            <column name="department" value="Electronics"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="components">
+                <where>version in ('2026.1', '2026.2', 'street-2026', 'fast-2026', 'ld-2026', 'cool-2026', '8spd-2026', 'rain-2026')</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

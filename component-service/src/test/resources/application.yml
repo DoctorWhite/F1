@@ -1,0 +1,19 @@
+spring:
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+  artemis:
+    mode: embedded
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://id.muni.cz/oidc/
+          audiences:
+            - 7e02a0a9-446a-412d-ad2b-90add47b0fdd
+
+component-service:
+  jms:
+    car-assembly-queue: car.assembly.completed
+    listener-concurrency: 1

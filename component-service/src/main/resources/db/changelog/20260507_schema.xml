@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="20260507_component_schema" author="component-service">
+        <createTable tableName="components">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="component_type" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="performance_score" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reliability_score" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="department" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint tableName="components"
+                             columnNames="name, version"
+                             constraintName="uk_component_name_version"/>
+
+        <createTable tableName="car_assembly_inbound_messages">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="message_id" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="car_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="assembled_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payload_json" type="clob">
+                <constraints nullable="false"/>
+            </column>
+            <column name="received_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint tableName="car_assembly_inbound_messages"
+                             columnNames="message_id"
+                             constraintName="uk_car_assembly_message_id"/>
+
+        <rollback>
+            <dropTable tableName="car_assembly_inbound_messages"/>
+            <dropTable tableName="components"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
