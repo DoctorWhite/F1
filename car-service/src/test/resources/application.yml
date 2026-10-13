@@ -1,0 +1,7 @@
+spring:
+  artemis:
+    mode: embedded
+
+car-service:
+  jms:
+    car-assembly-queue: car.assembly.completed
